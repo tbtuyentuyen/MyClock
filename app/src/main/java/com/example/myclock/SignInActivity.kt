@@ -99,6 +99,7 @@ class SignInActivity : AppCompatActivity() {
                             break
                         }
                     }
+
                     Log.d(TAG, "Value is: $name")
 
                 }
