@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1026667269666",
+    "firebase_url": "https://kltn-ffac4-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "kltn-ffac4",
+    "storage_bucket": "kltn-ffac4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1026667269666:android:1391d5f9a2e278b58cc47b",
+        "android_client_info": {
+          "package_name": "com.example.myclock"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1026667269666-a3tm3p9lltdus1g50sfa1mtuvn5khg2b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0pHOF32jMSARotICSjMKMxJe3LsGdV3c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1026667269666-a3tm3p9lltdus1g50sfa1mtuvn5khg2b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

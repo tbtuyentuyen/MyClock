@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ProfileActivity">
+
+
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="159dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="159dp"
+            android:text="Name"
+            android:textColor="@color/green"
+            android:textSize="35dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+        <TextView
+            android:layout_width="98dp"
+            android:layout_height="21dp"
+            android:layout_marginTop="380dp"
+            android:text="Name"
+            android:textColor="#6A6F7D"
+            android:textSize="11dp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="@id/textviewName"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/textviewName"
+            android:layout_width="98dp"
+            android:layout_height="21dp"
+            android:layout_marginStart="132dp"
+            android:layout_marginTop="420dp"
+            android:layout_marginEnd="181dp"
+            android:text="Name"
+            android:textColor="#6A6F7D"
+            android:textSize="11dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonSignup"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="329dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="620dp"
+            android:layout_marginEnd="23dp"
+            android:text="SAVE"
+            android:textColor="@color/green"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:backgroundTint="@color/black"
+            app:cornerRadius="10dp"
+            app:elevation="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
