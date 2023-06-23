@@ -103,13 +103,6 @@ class SignInActivity : AppCompatActivity() {
 
     }
 
-//    private fun checkLogin() {
-//        if (myPref.isLogin()!!) {
-//            val intent = Intent(this, MainActivity::class.java)
-//            startActivity(intent)
-//            finish()
-//        }
-//    }
 }
 
 
