@@ -34,24 +34,24 @@
             app:srcCompat="@drawable/iconpersonal" />
 
         <TextView
-            android:id="@+id/tvName"
+            android:id="@+id/tv1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="305dp"
-            android:text="Full Name"
+            android:layout_marginTop="300dp"
+            android:text="Hello Welcome"
             android:textSize="30dp"
             app:layout_constraintStart_toEndOf="@+id/imageView9"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvEmail"
+            android:id="@+id/tv2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="340dp"
-            android:text="email"
-            android:textSize="16dp"
+            android:text="Have a nice day!"
+            android:textSize="20dp"
             android:textStyle="italic"
-            app:layout_constraintStart_toStartOf="@+id/tvName"
+            app:layout_constraintStart_toStartOf="@+id/tv1"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
