@@ -1,6 +1,6 @@
 package com.example.myclock
 
-import android.content.ContentValues
+import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -15,12 +15,15 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import kotlinx.coroutines.delay
+import java.time.Duration
+import java.util.concurrent.TimeUnit
+import kotlin.concurrent.thread
 
 class SignInActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignInBinding
     private lateinit var myPref: SessionManager
     private lateinit var database: FirebaseDatabase
-    private var TAG = "TEST_LOGIN"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +33,6 @@ class SignInActivity : AppCompatActivity() {
 
         // Initialize Firebase Database
         database = FirebaseDatabase.getInstance()
-        checkLogin()
         var dbID = ""
 
         // Initialize Email, Password textField
@@ -49,25 +51,45 @@ class SignInActivity : AppCompatActivity() {
             Log.d(TAG, "Set text failed because don't have remember me")
         }
 
-
-        myPref.setUser(false)
-        Log.d("Check", "111111111----------------${myPref.isUser()}")
-
         binding.buttonSignIn.setOnClickListener {
             val id = tvID.editText?.text.toString().trim()
+            myPref.setInfoUser(id)
+            Log.d("ID of id", id)
             // Set error when empty input email, password
             if (id.isEmpty()) {
                 tvID.error = "User ID cannot be empty"
                 return@setOnClickListener
             }
 
-            checkUser(id)
+            val intent = Intent(this, MainActivity::class.java)
+            var count = 0
+            database.reference.child("users")
+                .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    // This method is called once with the initial value and again
+                    // whenever data at this location is updated.
+                    for (i in dataSnapshot.children) {
+                        dbID = i.key.toString()
+                        count++
+                        if (dbID == id) {
+                            Log.d("ID of dbID", "${dbID}")
+                            myPref.setInfoUser(dbID)
+                            //tvID.error = null
+                            startActivity(intent)
+                            break
+                        }
+                    }
+                    if(count == dataSnapshot.childrenCount.toInt()){
+                        tvID.error = "Wrong User ID"
+                    }
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    // Failed to read value
+                    Log.w(TAG, "Failed to read value.", error.toException())
+                }
+            })
 
-            Log.d("Check", "----------------${myPref.isUser()}")
-            if(myPref.isUser() == false){
-                tvID.error = "Wrong User ID"
-                return@setOnClickListener
-            }
+
 
             if (binding.checkboxRememberMe.isChecked) {
                 Log.d(TAG, "Checked Box Remember me")
@@ -76,47 +98,18 @@ class SignInActivity : AppCompatActivity() {
                 Log.d(TAG, "Unchecked Box Remember me")
                 myPref.setRememberMe(false)
             }
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
+
         }
 
     }
 
-
-
-    private fun checkLogin() {
-        if (myPref.isLogin()!!) {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-    }
-
-    private fun checkUser(id: String){
-        database.reference.child("users").addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                var count = 0
-                for (i in dataSnapshot.children) {
-                    count++
-                    var dbID = i.key.toString()
-                    if (dbID == id) {
-                        Log.d("Equal", "$dbID----$count")
-                        myPref.setInfoUser(dbID)
-                        myPref.setUser(true)
-                        break
-                    }
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                // Failed to read value
-                Log.w(ContentValues.TAG, "Failed to read value.", error.toException())
-            }
-        })
-    }
+//    private fun checkLogin() {
+//        if (myPref.isLogin()!!) {
+//            val intent = Intent(this, MainActivity::class.java)
+//            startActivity(intent)
+//            finish()
+//        }
+//    }
 }
 
 

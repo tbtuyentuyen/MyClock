@@ -185,5 +185,4 @@ class SetAlarmActivity : AppCompatActivity() {
             finish()
         }
     }
-
 }
