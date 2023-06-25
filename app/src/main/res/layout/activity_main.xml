@@ -39,6 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="300dp"
             android:text="Hello Welcome"
+            android:textStyle="bold"
             android:textSize="30dp"
             app:layout_constraintStart_toEndOf="@+id/imageView9"
             app:layout_constraintTop_toTopOf="parent" />
@@ -49,6 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="340dp"
             android:text="Have a nice day!"
+            android:textColor="@color/green"
             android:textSize="20dp"
             android:textStyle="italic"
             app:layout_constraintStart_toStartOf="@+id/tv1"
