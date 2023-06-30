@@ -10,7 +10,10 @@ import androidx.core.widget.doOnTextChanged
 import com.example.myclock.databinding.ActivitySetAlarmBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 
 class SetAlarmActivity : AppCompatActivity() {
@@ -50,6 +53,47 @@ class SetAlarmActivity : AppCompatActivity() {
         tvMinute3.editText?.doOnTextChanged { _, _, _, _ ->
             tvMinute3.error = null
         }
+
+        //set alarm time before
+        var mDataRef =  database.reference.child("users").child(myPref.getUserName().toString()).child("time")
+
+        mDataRef.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    // This method is called once with the initial value and again
+                    // whenever data at this location is updated.
+                    for (i in dataSnapshot.children) {
+                        if(i.key.toString() == "hour1" && i.key.toString() != "null"){
+                            Log.i("////firebase", "Got value ${i.value}")
+                            binding.tvHour1.editText?.setText(i.value.toString())
+                        }
+                        if(i.key.toString() == "minute1" && i.key.toString() != "null"){
+                            Log.i("////firebase", "Got value ${i.value}")
+                            binding.tvMinute1.editText?.setText(i.value.toString())
+                        }
+                        if(i.key.toString() == "hour2" && i.key.toString() != "null"){
+                            Log.i("////firebase", "Got value ${i.value}")
+                            binding.tvHour2.editText?.setText(i.value.toString())
+                        }
+                        if(i.key.toString() == "minute2" && i.key.toString() != "null"){
+                            Log.i("////firebase", "Got value ${i.value}")
+                            binding.tvMinute2.editText?.setText(i.value.toString())
+                        }
+                        if(i.key.toString() == "hour3" && i.key.toString() != "null"){
+                            Log.i("////firebase", "Got value ${i.value}")
+                            binding.tvHour3.editText?.setText(i.value.toString())
+                        }
+                        if(i.key.toString() == "minute3" && i.key.toString() != "null"){
+                            Log.i("////firebase", "Got value ${i.value}")
+                            binding.tvMinute3.editText?.setText(i.value.toString())
+                        }
+                    }
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    // Failed to read value
+                    Log.w(TAG, "Failed to read value.", error.toException())
+                }
+            })
+
 
         var hour1 = ""
         var minute1 = ""

@@ -35,31 +35,32 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+
         binding.btSetAlarm.setOnClickListener {
             val intent = Intent(this, SetAlarmActivity::class.java)
             startActivity(intent)
             finish()
-            Toast.makeText(this,
-                "Select Set Alarm",
-                Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this,
+//                "Select Set Alarm",
+//                Toast.LENGTH_SHORT).show()
         }
 
         binding.btTodoList.setOnClickListener {
             val intent = Intent(this, TodoListActivity::class.java)
             startActivity(intent)
             finish()
-            Toast.makeText(this,
-                "Select Todo List",
-                Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this,
+//                "Select Todo List",
+//                Toast.LENGTH_SHORT).show()
         }
 
         binding.btTellStory.setOnClickListener {
             val intent = Intent(this, TellStoriesActivity::class.java)
             startActivity(intent)
             finish()
-            Toast.makeText(this,
-                "Select Tells Stories",
-                Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this,
+//                "Select Tells Stories",
+//                Toast.LENGTH_SHORT).show()
         }
     }
 
