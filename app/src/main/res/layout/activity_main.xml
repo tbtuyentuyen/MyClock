@@ -21,7 +21,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/undraw_city_life_gnpr" />
+            app:srcCompat="@drawable/image_bacckground" />
 
         <ImageView
             android:id="@+id/imageView9"
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="340dp"
             android:text="Have a nice day!"
-            android:textColor="@color/green"
+            android:textColor="@color/blue"
             android:textSize="20dp"
             android:textStyle="italic"
             app:layout_constraintStart_toStartOf="@+id/tv1"
