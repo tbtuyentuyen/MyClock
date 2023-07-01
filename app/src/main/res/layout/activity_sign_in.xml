@@ -88,7 +88,7 @@
             android:layout_marginTop="616dp"
             android:layout_marginEnd="23dp"
             android:text="SIGN IN"
-            android:textColor="@color/blue"
+            android:textColor="@color/white"
             android:textSize="20dp"
             android:textStyle="bold"
             app:backgroundTint="@color/black"
