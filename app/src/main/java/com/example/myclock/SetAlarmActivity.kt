@@ -140,8 +140,8 @@ class SetAlarmActivity : AppCompatActivity() {
                         Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show()
                     }
                 } else {
-                    hour1 = ""
-                    minute1 = ""
+                    hour1 = "00"
+                    minute1 = "00"
                 }
 
                 Log.d(TAG, " 1=========== $hour1 $minute1")
@@ -178,8 +178,8 @@ class SetAlarmActivity : AppCompatActivity() {
                         Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show()
                     }
                 } else {
-                    hour2 = ""
-                    minute2 = ""
+                    hour2 = "00"
+                    minute2 = "00"
                 }
 
                 Log.d(TAG, " 2=========== $hour2 $minute2")
@@ -216,8 +216,8 @@ class SetAlarmActivity : AppCompatActivity() {
                         Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show()
                     }
                 } else {
-                    hour3 = ""
-                    minute3 = ""
+                    hour3 = "00"
+                    minute3 = "00"
                 }
                 Log.d(TAG, " 3=========== $hour3 $minute3")
             }

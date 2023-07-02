@@ -51,13 +51,16 @@ class TellStoriesActivity : AppCompatActivity() {
                 mListView.adapter = arrayAdapter
                 mListView.onItemClickListener =
                     AdapterView.OnItemClickListener { _, _, position, _ ->
+
+                        val storySelected = storyClass(stories[position])
                         val databaseRef = myPref.getUserName()
                             ?.let { it1 -> database.reference.child("users").child(it1).child("story") }
-                        val storySelected = storiesClass(stories[position])
                         databaseRef?.setValue(storySelected)?.addOnSuccessListener {
                             Toast.makeText(applicationContext,
                                 "Click item " + stories[position],
                                 Toast.LENGTH_SHORT).show()
+
+
                         }?.addOnFailureListener {
                             Toast.makeText(applicationContext, "Failed!", Toast.LENGTH_SHORT).show()
                         }
