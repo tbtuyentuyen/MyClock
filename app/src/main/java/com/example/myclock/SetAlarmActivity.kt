@@ -101,6 +101,9 @@ class SetAlarmActivity : AppCompatActivity() {
         var minute2 = ""
         var hour3 = ""
         var minute3 = ""
+        var alarm1 = "0"
+        var alarm2 = "0"
+        var alarm3 = "0"
 
         binding.btSave.setOnClickListener {
 
@@ -110,9 +113,10 @@ class SetAlarmActivity : AppCompatActivity() {
 
                 //Alarm 1
                 if (binding.checkBoxTime1.isChecked) {
+                    alarm1 = "1"
                     hour1 = tvHour1.editText?.text.toString().trim()
                     minute1 = tvMinute1.editText?.text.toString().trim()
-                    val time = timeClass(hour1, minute1, hour2, minute2, hour3, minute3)
+                    val time = timeClass(alarm1, hour1, minute1,alarm2, hour2, minute2,alarm3, hour3, minute3)
                     //don't fill hour and minute
                     if (hour1.isEmpty()) {
                         tvHour1.error = "Invalid!"
@@ -122,7 +126,7 @@ class SetAlarmActivity : AppCompatActivity() {
                         tvMinute1.error = "Invalid!"
                         return@setOnClickListener
                     }
-                    if (hour1.toInt() > 24) {
+                    if (hour1.toInt() > 23) {
                         tvHour1.error = "Wrong!"
                         return@setOnClickListener
                     }
@@ -140,17 +144,19 @@ class SetAlarmActivity : AppCompatActivity() {
                         Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show()
                     }
                 } else {
+                    alarm1 = "0"
                     hour1 = "00"
                     minute1 = "00"
                 }
 
-                Log.d(TAG, " 1=========== $hour1 $minute1")
+                Log.d(TAG, " 1=========== $alarm1 $hour1 $minute1")
 
                 //Alarm 2
                 if (binding.checkBoxTime2.isChecked) {
+                    alarm2 = "1"
                     hour2 = tvHour2.editText?.text.toString().trim()
                     minute2 = tvMinute2.editText?.text.toString().trim()
-                    val time = timeClass(hour1, minute1, hour2, minute2, hour3, minute3)
+                    val time = timeClass(alarm1, hour1, minute1,alarm2, hour2, minute2,alarm3, hour3, minute3)
                     //don't fill hour and minute
                     if (hour2.isEmpty()) {
                         tvHour2.error = "Invalid!"
@@ -160,7 +166,7 @@ class SetAlarmActivity : AppCompatActivity() {
                         tvMinute2.error = "Invalid!"
                         return@setOnClickListener
                     }
-                    if (hour2.toInt() > 24) {
+                    if (hour2.toInt() > 23) {
                         tvHour2.error = "Wrong!"
                         return@setOnClickListener
                     }
@@ -178,6 +184,7 @@ class SetAlarmActivity : AppCompatActivity() {
                         Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show()
                     }
                 } else {
+                    alarm2 = "0"
                     hour2 = "00"
                     minute2 = "00"
                 }
@@ -186,9 +193,10 @@ class SetAlarmActivity : AppCompatActivity() {
 
                 //Alarm 3
                 if (binding.checkBoxTime3.isChecked) {
+                    alarm3 = "1"
                     hour3 = tvHour3.editText?.text.toString().trim()
                     minute3 = tvMinute3.editText?.text.toString().trim()
-                    val time = timeClass(hour1, minute1, hour2, minute2, hour3, minute3)
+                    val time = timeClass(alarm1, hour1, minute1,alarm2, hour2, minute2,alarm3, hour3, minute3)
                     //don't fill hour and minute
                     if (hour3.isEmpty()) {
                         tvHour3.error = "Invalid!"
@@ -198,7 +206,7 @@ class SetAlarmActivity : AppCompatActivity() {
                         tvMinute3.error = "Invalid!"
                         return@setOnClickListener
                     }
-                    if (hour3.toInt() > 24) {
+                    if (hour3.toInt() > 23) {
                         tvHour3.error = "Wrong!"
                         return@setOnClickListener
                     }
@@ -216,6 +224,7 @@ class SetAlarmActivity : AppCompatActivity() {
                         Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show()
                     }
                 } else {
+                    alarm3 = "0"
                     hour3 = "00"
                     minute3 = "00"
                 }
