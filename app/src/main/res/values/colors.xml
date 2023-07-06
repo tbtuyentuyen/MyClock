@@ -3,8 +3,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="green">#00FFAB</color>
-    <color name="green_background">#B8F1B0</color>
+    <color name="white_button_background">#FFFBFE</color>
     <color name="white_background">#FCF9F9</color>
     <color name="blue">#4873FF</color>
+    <color name="gray_text">#D3CFCF</color>
 
 </resources>

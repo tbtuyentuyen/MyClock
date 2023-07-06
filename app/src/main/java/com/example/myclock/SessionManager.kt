@@ -35,6 +35,7 @@ class SessionManager(context: Context) {
         return pref?.getString(KEY_ID, "")
     }
 
+
     fun removeData(){
         editor?.putBoolean(KEY_IS_LOGIN, false)
         editor?.apply()

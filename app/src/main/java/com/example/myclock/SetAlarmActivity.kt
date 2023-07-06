@@ -5,6 +5,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.CheckBox
+import android.widget.CompoundButton
 import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import com.example.myclock.databinding.ActivitySetAlarmBinding
@@ -62,28 +64,31 @@ class SetAlarmActivity : AppCompatActivity() {
                     // This method is called once with the initial value and again
                     // whenever data at this location is updated.
                     for (i in dataSnapshot.children) {
+                        if(i.key.toString() == "alarm1" && i.value.toString() == "1"){
+                            binding.checkBoxTime1.isChecked = true
+                        }
                         if(i.key.toString() == "hour1" && i.key.toString() != "null"){
-                            Log.i("////firebase", "Got value ${i.value}")
                             binding.tvHour1.editText?.setText(i.value.toString())
                         }
                         if(i.key.toString() == "minute1" && i.key.toString() != "null"){
-                            Log.i("////firebase", "Got value ${i.value}")
                             binding.tvMinute1.editText?.setText(i.value.toString())
                         }
+                        if(i.key.toString() == "alarm2" && i.value.toString() == "1"){
+                            binding.checkBoxTime2.isChecked = true
+                        }
                         if(i.key.toString() == "hour2" && i.key.toString() != "null"){
-                            Log.i("////firebase", "Got value ${i.value}")
                             binding.tvHour2.editText?.setText(i.value.toString())
                         }
                         if(i.key.toString() == "minute2" && i.key.toString() != "null"){
-                            Log.i("////firebase", "Got value ${i.value}")
                             binding.tvMinute2.editText?.setText(i.value.toString())
                         }
+                        if(i.key.toString() == "alarm3" && i.value.toString() == "1"){
+                            binding.checkBoxTime3.isChecked = true
+                        }
                         if(i.key.toString() == "hour3" && i.key.toString() != "null"){
-                            Log.i("////firebase", "Got value ${i.value}")
                             binding.tvHour3.editText?.setText(i.value.toString())
                         }
                         if(i.key.toString() == "minute3" && i.key.toString() != "null"){
-                            Log.i("////firebase", "Got value ${i.value}")
                             binding.tvMinute3.editText?.setText(i.value.toString())
                         }
                     }
@@ -93,7 +98,6 @@ class SetAlarmActivity : AppCompatActivity() {
                     Log.w(TAG, "Failed to read value.", error.toException())
                 }
             })
-
 
         var hour1 = ""
         var minute1 = ""
@@ -106,129 +110,123 @@ class SetAlarmActivity : AppCompatActivity() {
         var alarm3 = "0"
 
         binding.btSave.setOnClickListener {
+            val databaseRef = myPref.getUserName()
+                ?.let { it1 -> database.reference.child("users").child(it1).child("time") }
 
-            for(i in 0..1) {
-                val databaseRef = myPref.getUserName()
-                    ?.let { it1 -> database.reference.child("users").child(it1).child("time") }
-
-                //Alarm 1
-                if (binding.checkBoxTime1.isChecked) {
-                    alarm1 = "1"
-                    hour1 = tvHour1.editText?.text.toString().trim()
-                    minute1 = tvMinute1.editText?.text.toString().trim()
-                    val time = timeClass(alarm1, hour1, minute1,alarm2, hour2, minute2,alarm3, hour3, minute3)
-                    //don't fill hour and minute
-                    if (hour1.isEmpty()) {
-                        tvHour1.error = "Invalid!"
-                        return@setOnClickListener
-                    }
-                    if (minute1.isEmpty()) {
-                        tvMinute1.error = "Invalid!"
-                        return@setOnClickListener
-                    }
-                    if (hour1.toInt() > 23) {
-                        tvHour1.error = "Wrong!"
-                        return@setOnClickListener
-                    }
-                    if (minute1.toInt() > 59) {
-                        tvMinute1.error = "Wrong!"
-                        return@setOnClickListener
-                    }
-
-                    tvHour1.editText?.setText(hour1)
-                    tvMinute1.editText?.setText(minute1)
-
-                    databaseRef?.setValue(time)?.addOnSuccessListener {
-                        Toast.makeText(this, "Set Alarm 1!", Toast.LENGTH_SHORT).show()
-                    }?.addOnFailureListener {
-                        Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show()
-                    }
-                } else {
-                    alarm1 = "0"
-                    hour1 = "00"
-                    minute1 = "00"
+            //Alarm 1
+            if (binding.checkBoxTime1.isChecked) {
+                alarm1 = "1"
+                hour1 = tvHour1.editText?.text.toString().trim()
+                minute1 = tvMinute1.editText?.text.toString().trim()
+                val time = timeClass(alarm1, hour1, minute1,alarm2, hour2, minute2,alarm3, hour3, minute3)
+                //don't fill hour and minute
+                if (hour1.isEmpty()) {
+                    tvHour1.error = "Invalid!"
+                    return@setOnClickListener
+                }
+                if (minute1.isEmpty()) {
+                    tvMinute1.error = "Invalid!"
+                    return@setOnClickListener
+                }
+                if (hour1.toInt() > 23) {
+                    tvHour1.error = "Wrong!"
+                    return@setOnClickListener
+                }
+                if (minute1.toInt() > 59) {
+                    tvMinute1.error = "Wrong!"
+                    return@setOnClickListener
                 }
 
-                Log.d(TAG, " 1=========== $alarm1 $hour1 $minute1")
+                tvHour1.editText?.setText(hour1)
+                tvMinute1.editText?.setText(minute1)
 
-                //Alarm 2
-                if (binding.checkBoxTime2.isChecked) {
-                    alarm2 = "1"
-                    hour2 = tvHour2.editText?.text.toString().trim()
-                    minute2 = tvMinute2.editText?.text.toString().trim()
-                    val time = timeClass(alarm1, hour1, minute1,alarm2, hour2, minute2,alarm3, hour3, minute3)
-                    //don't fill hour and minute
-                    if (hour2.isEmpty()) {
-                        tvHour2.error = "Invalid!"
-                        return@setOnClickListener
-                    }
-                    if (minute2.isEmpty()) {
-                        tvMinute2.error = "Invalid!"
-                        return@setOnClickListener
-                    }
-                    if (hour2.toInt() > 23) {
-                        tvHour2.error = "Wrong!"
-                        return@setOnClickListener
-                    }
-                    if (minute2.toInt() > 59) {
-                        tvMinute2.error = "Wrong!"
-                        return@setOnClickListener
-                    }
+                databaseRef?.setValue(time)?.addOnSuccessListener {
+                    Toast.makeText(this, "Set Alarm 1!", Toast.LENGTH_SHORT).show()
+                }?.addOnFailureListener {
+                    Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                alarm1 = "0"
+                hour1 = "00"
+                minute1 = "00"
+            }
 
-                    tvHour2.editText?.setText(hour2)
-                    tvMinute2.editText?.setText(minute2)
 
-                    databaseRef?.setValue(time)?.addOnSuccessListener {
-                        Toast.makeText(this, "Set Alarm 2!", Toast.LENGTH_SHORT).show()
-                    }?.addOnFailureListener {
-                        Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show()
-                    }
-                } else {
-                    alarm2 = "0"
-                    hour2 = "00"
-                    minute2 = "00"
+            //Alarm 2
+            if (binding.checkBoxTime2.isChecked) {
+                alarm2 = "1"
+                hour2 = tvHour2.editText?.text.toString().trim()
+                minute2 = tvMinute2.editText?.text.toString().trim()
+                val time = timeClass(alarm1, hour1, minute1,alarm2, hour2, minute2,alarm3, hour3, minute3)
+                //don't fill hour and minute
+                if (hour2.isEmpty()) {
+                    tvHour2.error = "Invalid!"
+                    return@setOnClickListener
+                }
+                if (minute2.isEmpty()) {
+                    tvMinute2.error = "Invalid!"
+                    return@setOnClickListener
+                }
+                if (hour2.toInt() > 23) {
+                    tvHour2.error = "Wrong!"
+                    return@setOnClickListener
+                }
+                if (minute2.toInt() > 59) {
+                    tvMinute2.error = "Wrong!"
+                    return@setOnClickListener
                 }
 
-                Log.d(TAG, " 2=========== $hour2 $minute2")
+                tvHour2.editText?.setText(hour2)
+                tvMinute2.editText?.setText(minute2)
 
-                //Alarm 3
-                if (binding.checkBoxTime3.isChecked) {
-                    alarm3 = "1"
-                    hour3 = tvHour3.editText?.text.toString().trim()
-                    minute3 = tvMinute3.editText?.text.toString().trim()
-                    val time = timeClass(alarm1, hour1, minute1,alarm2, hour2, minute2,alarm3, hour3, minute3)
-                    //don't fill hour and minute
-                    if (hour3.isEmpty()) {
-                        tvHour3.error = "Invalid!"
-                        return@setOnClickListener
-                    }
-                    if (minute3.isEmpty()) {
-                        tvMinute3.error = "Invalid!"
-                        return@setOnClickListener
-                    }
-                    if (hour3.toInt() > 23) {
-                        tvHour3.error = "Wrong!"
-                        return@setOnClickListener
-                    }
-                    if (minute3.toInt() > 59) {
-                        tvMinute3.error = "Wrong!"
-                        return@setOnClickListener
-                    }
-
-                    tvHour3.editText?.setText(hour3)
-                    tvMinute3.editText?.setText(minute3)
-
-                    databaseRef?.setValue(time)?.addOnSuccessListener {
-                        Toast.makeText(this, "Set Alarm 3!", Toast.LENGTH_SHORT).show()
-                    }?.addOnFailureListener {
-                        Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show()
-                    }
-                } else {
-                    alarm3 = "0"
-                    hour3 = "00"
-                    minute3 = "00"
+                databaseRef?.setValue(time)?.addOnSuccessListener {
+                    Toast.makeText(this, "Set Alarm 2!", Toast.LENGTH_SHORT).show()
+                }?.addOnFailureListener {
+                    Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show()
                 }
-                Log.d(TAG, " 3=========== $hour3 $minute3")
+            } else {
+                alarm2 = "0"
+                hour2 = "00"
+                minute2 = "00"
+            }
+
+
+            //Alarm 3
+            if (binding.checkBoxTime3.isChecked) {
+                alarm3 = "1"
+                hour3 = tvHour3.editText?.text.toString().trim()
+                minute3 = tvMinute3.editText?.text.toString().trim()
+                val time = timeClass(alarm1, hour1, minute1,alarm2, hour2, minute2,alarm3, hour3, minute3)
+                //don't fill hour and minute
+                if (hour3.isEmpty()) {
+                    tvHour3.error = "Invalid!"
+                    return@setOnClickListener
+                }
+                if (minute3.isEmpty()) {
+                    tvMinute3.error = "Invalid!"
+                    return@setOnClickListener
+                }
+                if (hour3.toInt() > 23) {
+                    tvHour3.error = "Wrong!"
+                    return@setOnClickListener
+                }
+                if (minute3.toInt() > 59) {
+                    tvMinute3.error = "Wrong!"
+                    return@setOnClickListener
+                }
+
+                tvHour3.editText?.setText(hour3)
+                tvMinute3.editText?.setText(minute3)
+
+                databaseRef?.setValue(time)?.addOnSuccessListener {
+                    Toast.makeText(this, "Set Alarm 3!", Toast.LENGTH_SHORT).show()
+                }?.addOnFailureListener {
+                    Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                alarm3 = "0"
+                hour3 = "00"
+                minute3 = "00"
             }
         }
 

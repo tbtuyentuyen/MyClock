@@ -52,7 +52,7 @@ class SignInActivity : AppCompatActivity() {
         }
 
         binding.buttonSignIn.setOnClickListener {
-            val id = tvID.editText?.text.toString().trim()
+            var id = tvID.editText?.text.toString().trim()
             myPref.setInfoUser(id)
             Log.d("ID of id", id)
             // Set error when empty input email, password
@@ -72,10 +72,11 @@ class SignInActivity : AppCompatActivity() {
                         dbID = i.key.toString()
                         count++
                         if (dbID == id) {
+                            id = ""
                             Log.d("ID of dbID", "${dbID}")
                             myPref.setInfoUser(dbID)
-                            //tvID.error = null
                             startActivity(intent)
+                            finish()
                             break
                         }
                     }

@@ -1,19 +1,16 @@
 package com.example.myclock
 
-import android.content.ContentValues
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Color
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
-import android.text.Editable
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
-import com.example.myclock.databinding.ActivityMainBinding
 import com.example.myclock.databinding.ActivityTodoListBinding
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 
 class TodoListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTodoListBinding
@@ -27,37 +24,84 @@ class TodoListActivity : AppCompatActivity() {
         // Initialize Firebase Auth and Firebase Database
         database = FirebaseDatabase.getInstance()
         var tvTodoList = binding.tvTodoList
+        var tvHour = binding.tvHour
+        var tvMinute = binding.tvMinute
+        var list = mutableListOf("")
+        var timeTask : String
 
-        //print todolist set before
-        database.reference.child("users").child(myPref.getUserName().toString())
-            .child("tasks").get().addOnSuccessListener {
-                    Log.i("firebase", "Got value ${it.value}")
-                    if(it.value.toString() != "null"){
-                        binding.tvTodoList.editText?.setText(it.value.toString())
-                    }
-        }.addOnFailureListener{
-            Log.e("firebase", "Error getting data", it)
-        }
+//
 
         // Reset state input when have change on it
         tvTodoList.editText?.doOnTextChanged { _, _, _, _ ->
             tvTodoList.error = null
         }
+        tvHour.editText?.doOnTextChanged { _, _, _, _ ->
+            tvHour.error = null
+        }
+        tvMinute.editText?.doOnTextChanged { _, _, _, _ ->
+            tvMinute.error = null
+        }
+
+        var hour = ""
+        var minute = ""
+        var task = ""
+        var i = 0
+
 
         binding.btSave.setOnClickListener{
-            val tasks = tvTodoList.editText?.text.toString().trim()
-            if (tasks.isEmpty()) {
-                tvTodoList.error = "Please enter tasks"
+            task = tvTodoList.editText?.text.toString().trim()
+            hour = tvHour.editText?.text.toString().trim()
+            minute = tvMinute.editText?.text.toString().trim()
+            if (task.isEmpty()) {
+                tvTodoList.error = "Please enter task"
                 return@setOnClickListener
             }
-            textClass(tasks)
+            if (hour.isEmpty()) {
+                tvHour.error = "Invalid!"
+                return@setOnClickListener
+            }
+            if (minute.isEmpty()) {
+                tvMinute.error = "Invalid!"
+                return@setOnClickListener
+            }
+            if (hour.toInt() > 23) {
+                tvHour.error = "Wrong!"
+                return@setOnClickListener
+            }
+            if (minute.toInt() > 59) {
+                tvMinute.error = "Wrong!"
+                return@setOnClickListener
+            }
+            list.add(i, hour)
+            i++
+            list.add(i, minute)
+            i++
+            list.add(i, task)
+            i++
+            timeTask = list.joinToString(
+//                prefix = "[",
+                separator = ":",
+//                postfix = "]",
+                limit = 1000,
+                truncated = "..."
+            )
+            Log.d("Time and Task", timeTask)
+
+            var taskClass = textClass(timeTask, (0..1000000).random().toString())
             val databaseRef = myPref.getUserName()
                 ?.let { it1 -> database.reference.child("users").child(it1).child("tasks") }
-            databaseRef?.setValue(tasks)?.addOnSuccessListener {
+            databaseRef?.setValue(taskClass)?.addOnSuccessListener {
                 Toast.makeText(this, "Success!", Toast.LENGTH_SHORT).show()
             }?.addOnFailureListener {
                 Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show()
             }
+
+        }
+
+        binding.btDetail.setOnClickListener {
+            val intent = Intent(this, DetailTodoListActivity::class.java)
+            startActivity(intent)
+            finish()
         }
 
         binding.iconBack.setOnClickListener {
