@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ModifyTaskActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ModifyTaskActivity">
+
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="47dp"
+            android:layout_marginTop="92dp"
+            android:layout_marginEnd="48dp"
+            android:text="Change Task"
+            android:textSize="50dp"
+            android:textStyle="bold"
+            android:typeface="serif"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="170dp"
+            android:text="Time"
+            android:textSize="23dp"
+            android:textStyle="bold"
+            android:typeface="serif"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tvHourNew"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="100dp"
+            android:layout_height="85dp"
+            android:layout_marginStart="90dp"
+            android:layout_marginTop="210dp"
+            app:boxStrokeColor="@color/blue"
+            app:endIconMode="clear_text"
+            app:errorEnabled="true"
+            app:errorTextAppearance="@color/design_default_color_error"
+            app:errorTextColor="@color/design_default_color_error"
+            app:helperTextEnabled="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="100dp"
+                android:layout_height="55dp"
+                android:inputType="datetime"
+                android:textSize="18dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="9dp"
+            android:layout_marginTop="225dp"
+            android:text=":"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/tvMinute"
+            app:layout_constraintStart_toEndOf="@+id/tvHour"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tvMinuteNew"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="100dp"
+            android:layout_height="85dp"
+            android:layout_marginTop="210dp"
+            android:layout_marginEnd="90dp"
+            app:boxStrokeColor="@color/blue"
+            app:endIconMode="clear_text"
+            app:errorEnabled="true"
+            app:errorTextAppearance="@color/design_default_color_error"
+            app:errorTextColor="@color/design_default_color_error"
+            app:helperTextEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="100dp"
+                android:layout_height="55dp"
+                android:inputType="datetime"
+                android:textSize="18dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="305dp"
+            android:text="Task"
+            android:textSize="23dp"
+            android:textStyle="bold"
+            android:typeface="serif"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tvTaskNew"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="356dp"
+            android:layout_height="333dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="355dp"
+            android:layout_marginEnd="26dp"
+            app:boxStrokeColor="@color/blue"
+            app:endIconMode="clear_text"
+            app:errorEnabled="true"
+            app:errorTextAppearance="@color/design_default_color_error"
+            app:errorTextColor="@color/design_default_color_error"
+            app:helperTextEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="302dp"
+                android:textAlignment="viewStart"
+                android:textSize="18dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <Button
+            android:id="@+id/btSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="696dp"
+            android:layout_marginEnd="4dp"
+            android:text="Save"
+            app:layout_constraintEnd_toEndOf="@+id/tvTodoList"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <Button
+            android:id="@+id/btDetail"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="272dp"
+            android:layout_marginTop="752dp"
+            android:text="Detail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iconBack"
+            android:layout_width="40dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/iconback" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

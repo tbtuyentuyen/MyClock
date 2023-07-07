@@ -1,5 +1,6 @@
 package com.example.myclock
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,10 +8,9 @@ import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myclock.databinding.ActivityDetailTodoListBinding
-import com.example.myclock.databinding.ActivityMainBinding
 import com.google.firebase.database.FirebaseDatabase
 
-class DetailTodoListActivity : AppCompatActivity() {
+class DetailTodoListActivity : AppCompatActivity(), MyAdapter.MyClickListener {
     private lateinit var binding: ActivityDetailTodoListBinding
     private lateinit var myPref: SessionManager
     private lateinit var database: FirebaseDatabase
@@ -48,7 +48,6 @@ class DetailTodoListActivity : AppCompatActivity() {
 
     private fun getData(){
         var tempList : MutableList<String> = mutableListOf("")
-        var textFromServer : String
         var count: Int = 0
         database.reference.child("users").child(myPref.getUserName().toString())
             .child("tasks").child("task").get().addOnSuccessListener {
@@ -72,11 +71,16 @@ class DetailTodoListActivity : AppCompatActivity() {
                         val multiData = multiDataClass(tempList[i], tempList[i+1].toString(), tempList[i+2].toString())
                         newArrayList.add(multiData)
                     }
-                    newRecyclerview.adapter = MyAdapter(newArrayList)
+                    newRecyclerview.adapter = MyAdapter(newArrayList, this@DetailTodoListActivity)
+
 
                 }
             }.addOnFailureListener{
                 Log.e("firebase", "Error getting data", it)
             }
+    }
+
+    override fun onClick(position: Int) {
+        Log.d(TAG, "Get url: " + newArrayList[position])
     }
 }

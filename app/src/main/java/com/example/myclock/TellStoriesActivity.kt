@@ -33,6 +33,7 @@ class TellStoriesActivity : AppCompatActivity() {
         var stories = mutableListOf("")
 
         var count = 0
+        val intentDetail = Intent(this, ReadStoryActivity::class.java)
         val databaseRef = database.reference.child("stories")
         val eventListener: ValueEventListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -45,21 +46,22 @@ class TellStoriesActivity : AppCompatActivity() {
                     Log.d("Firebase", stories[t])
                 }
 
+
                 var mListView = findViewById<ListView>(R.id.listView)
                 arrayAdapter = ArrayAdapter(applicationContext,
                     android.R.layout.simple_list_item_1, stories)
                 mListView.adapter = arrayAdapter
                 mListView.onItemClickListener =
                     AdapterView.OnItemClickListener { _, _, position, _ ->
-
                         val storySelected = storyClass(stories[position])
                         val databaseRef = myPref.getUserName()
                             ?.let { it1 -> database.reference.child("users").child(it1).child("story") }
                         databaseRef?.setValue(storySelected)?.addOnSuccessListener {
                             Toast.makeText(applicationContext,
-                                "Click item " + stories[position],
+                                "Choose " + stories[position],
                                 Toast.LENGTH_SHORT).show()
-
+                            myPref.setStory(stories[position])
+                            startActivity(intentDetail)
 
                         }?.addOnFailureListener {
                             Toast.makeText(applicationContext, "Failed!", Toast.LENGTH_SHORT).show()

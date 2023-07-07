@@ -5,10 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
 
-class MyAdapter(private val newsList: ArrayList<multiDataClass>):
+class MyAdapter(private val newsList: ArrayList<multiDataClass>, val listener: MyClickListener):
     RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
@@ -27,10 +27,21 @@ class MyAdapter(private val newsList: ArrayList<multiDataClass>):
     }
 
 
-    class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val itemHour: TextView = itemView.findViewById(R.id.tvHourTask)
         val itemMinute: TextView = itemView.findViewById(R.id.tvMinuteTask)
         val itemDetailTask: TextView = itemView.findViewById(R.id.tvDetailTask)
+
+        init {
+            itemView.setOnClickListener{
+                val position = adapterPosition
+                listener.onClick(position)
+            }
+        }
+    }
+
+    interface MyClickListener{
+        fun onClick(position: Int)
     }
 
 }

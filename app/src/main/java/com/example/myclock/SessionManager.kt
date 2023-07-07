@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 class SessionManager(context: Context) {
     private val PREF_NAME = "SharedPreferences"
     private val KEY_IS_LOGIN = "is_login"
+    private val KEY_STORY = "story"
     private val KEY_ID = "id"
     private val KEY_REMEMBER_ME = "remember_me"
 
@@ -24,6 +25,11 @@ class SessionManager(context: Context) {
         editor?.apply()
     }
 
+    fun setStory(id: String){
+        editor?.putString(KEY_STORY, id)
+        editor?.apply()
+    }
+
 
     fun isRememberMe(): Boolean?{
         return pref?.getBoolean(KEY_REMEMBER_ME, false)
@@ -33,6 +39,10 @@ class SessionManager(context: Context) {
 
     fun getUserName(): String?{
         return pref?.getString(KEY_ID, "")
+    }
+
+    fun getStory(): String?{
+        return pref?.getString(KEY_STORY, "")
     }
 
 

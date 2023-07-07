@@ -39,19 +39,16 @@ class MainActivity : AppCompatActivity() {
         binding.btSetAlarm.setOnClickListener {
             val intent = Intent(this, SetAlarmActivity::class.java)
             startActivity(intent)
-            finish()
         }
 
         binding.btTodoList.setOnClickListener {
             val intent = Intent(this, TodoListActivity::class.java)
             startActivity(intent)
-            finish()
         }
 
         binding.btTellStory.setOnClickListener {
             val intent = Intent(this, TellStoriesActivity::class.java)
             startActivity(intent)
-            finish()
         }
     }
 
